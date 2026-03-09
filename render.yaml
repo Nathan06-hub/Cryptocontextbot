@@ -1,0 +1,63 @@
+# ============================================================
+# Render.com — Configuration de déploiement
+# Crypto Context Bot v4.0 — Mode paiement manuel
+#
+# 1 service :
+#   crypto-bot (web) → bot Discord + health server HTTP
+#
+# IMPORTANT : configurez les variables d'environnement
+# dans le dashboard Render.
+# ============================================================
+
+services:
+
+  # ── Bot Discord (Web Service) ─────────────────────────────
+  - type: web
+    name: crypto-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot_discord.py
+    healthCheckPath: /
+    envVars:
+
+      # ── Discord ───────────────────────────────────────────
+      - key: DISCORD_BOT_TOKEN
+        sync: false           # Token du bot Discord
+      - key: ADMIN_DISCORD_ID
+        sync: false           # Votre ID Discord (mode développeur)
+      - key: FEEDBACK_CHANNEL_ID
+        sync: false           # ID du salon #feedbacks
+
+      # ── Contact & Paiement manuel ─────────────────────────
+      - key: MANUAL_MODE
+        value: "true"
+      - key: CONTACT_DISCORD
+        value: "omerta_nat"
+      - key: CONTACT_EMAIL
+        value: "maresteph06@gmail.com"
+
+      # ── PayPal ────────────────────────────────────────────
+      - key: PAYPAL_BASIC
+        value: "https://www.paypal.com/ncp/payment/KCYRPURNDT8VG"
+      - key: PAYPAL_PRO
+        value: "https://www.paypal.com/ncp/payment/88Z3588KDE8PA"
+      - key: PAYPAL_PREMIUM
+        value: "https://www.paypal.com/ncp/payment/G594N8KAJANDW"
+
+      # ── Orange Money ──────────────────────────────────────
+      - key: ORANGE_MONEY_1
+        value: "55853991"
+      - key: ORANGE_MONEY_2
+        value: "44504601"
+
+      # ── CoinGecko API ─────────────────────────────────────
+      - key: COINGECKO_API_KEY
+        sync: false           # Clé API CoinGecko (Demo tier gratuit)
+
+      # ── Config ────────────────────────────────────────────
+      - key: PYTHONUTF8
+        value: "1"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: ENVIRONMENT
+        value: production
