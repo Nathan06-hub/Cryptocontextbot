@@ -75,3 +75,4 @@ crypto_bot/
 ├── .env
 └── requirements_discord.txt
 ```
+"# Cryptocontextbot" 
