@@ -75,6 +75,7 @@ class CryptoFetcher:
     def __init__(self):
         self.cache = APICache()
         self._session: Optional[aiohttp.ClientSession] = None
+        self._api_key = os.getenv('COINGECKO_API_KEY', '')
         self._symbol_map = {
             'BTC': 'bitcoin', 'ETH': 'ethereum', 'BNB': 'binancecoin',
             'SOL': 'solana', 'XRP': 'ripple', 'ADA': 'cardano',
@@ -94,8 +95,11 @@ class CryptoFetcher:
         """Retourne la session aiohttp, la crée si nécessaire."""
         if self._session is None or self._session.closed:
             timeout = aiohttp.ClientTimeout(total=15, connect=5)
+            headers = {'User-Agent': 'CryptoContextBot/3.0'}
+            if self._api_key:
+                headers['x-cg-demo-api-key'] = self._api_key
             self._session = aiohttp.ClientSession(
-                headers={'User-Agent': 'CryptoContextBot/3.0'},
+                headers=headers,
                 timeout=timeout
             )
         return self._session
