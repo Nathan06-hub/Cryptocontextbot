@@ -76,3 +76,4 @@ crypto_bot/
 └── requirements_discord.txt
 ```
 "# Cryptocontextbot" 
+#our le laisr
