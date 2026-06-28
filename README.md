@@ -18,7 +18,7 @@ cp .env.example .env
 # Éditez .env avec votre token Discord et clés Stripe
 python3 bot_discord.py
 ```
-
+#etit test our n8n
 ## 🎯 Commandes
 
 | Commande | Description | Plan requis |
